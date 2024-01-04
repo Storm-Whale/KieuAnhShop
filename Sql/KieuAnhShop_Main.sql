@@ -40,7 +40,7 @@ CREATE TABLE CHITIETHOADON (
 )
 
 CREATE TABLE CHITIETSPTRONGHOADON (
-    IDSPCTTHD INT PRIMARY KEY,
+    IDSPCTTHD INT PRIMARY KEY IDENTITY(1,1),
     IDHDCT INT,
     IDSP INT,
     SOLUONG INT NOT NULL,
@@ -50,3 +50,39 @@ CREATE TABLE CHITIETSPTRONGHOADON (
     FOREIGN KEY (IDSP) REFERENCES dbo.SANPHAM(IDSP)
 );
 
+-- Insert dữ liệu cho bảng SANPHAM
+INSERT INTO SANPHAM (TENSP, MOTA, GIA, SOLUONGTRONGKHO)
+VALUES 
+    (N'Điện thoại Samsung Galaxy S21', N'Mô tả sản phẩm Samsung Galaxy S21', 999.99, 50),
+    (N'Laptop Dell XPS 13', N'Mô tả sản phẩm Dell XPS 13', 1299.99, 30),
+    (N'Tivi Sony Bravia 4K', N'Mô tả sản phẩm Sony Bravia 4K', 1499.99, 20);
+
+-- Insert dữ liệu cho bảng CHITETSP
+INSERT INTO CHITETSP (IDSP, KICHTHUOC, MAUSAC)
+VALUES 
+    (1, N'6 inch', N'Đen'),
+    (2, N'13.3 inch', N'Bạc'),
+    (3, N'55 inch', N'Đen');
+
+-- Insert dữ liệu cho bảng HOADON
+INSERT INTO HOADON (IDKHACHHANG, NGAYTAO, TONGTIEN, TRANGTHAI)
+VALUES 
+    (1, '2024-01-04', 1999.98, 1),
+    (2, '2024-01-05', 2799.97, 0),
+    (3, '2024-01-06', 1499.99, 1);
+
+-- Insert dữ liệu cho bảng CHITIETHOADON
+INSERT INTO CHITIETHOADON (IDHD, SLSP, TONGTIENSP)
+VALUES 
+    (1, 2, 1999.98),
+    (2, 3, 2799.97),
+    (3, 1, 1499.99);
+
+-- Insert dữ liệu cho bảng CHITIETSPTRONGHOADON
+INSERT INTO CHITIETSPTRONGHOADON (IDHDCT, IDSP, SOLUONG, GIA, TONGTIEN)
+VALUES 
+    (1, 1, 1, 999.99, 999.99),
+    (1, 2, 1, 999.99, 999.99),
+    (2, 2, 2, 1299.99, 2599.98),
+    (2, 3, 1, 1499.99, 1499.99),
+    (3, 3, 1, 1499.99, 1499.99);

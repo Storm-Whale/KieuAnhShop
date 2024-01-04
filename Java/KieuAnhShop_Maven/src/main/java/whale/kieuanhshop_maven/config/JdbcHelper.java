@@ -9,7 +9,7 @@ public class JdbcHelper {
 
     public static String USER = "sa";
     public static String PASS = "123456";
-    public static String URL = "jdbc:sqlserver://localhost:1433;databaseName=master;encrypt=true;trustServerCertificate=true";
+    public static String URL = "jdbc:sqlserver://localhost:1433;databaseName=KieuAnhShop;encrypt=true;trustServerCertificate=true";
 
     // Chạy và được gọi đầu tiên
     static {

@@ -1,0 +1,46 @@
+USE KIEUANHSHOP
+GO
+
+CREATE PROC pro_InsertSP
+	@tenSP NVARCHAR(50), @kichThuoc NVARCHAR(20),
+	@mauSac NVARCHAR(20), @gia DECIMAL(10,2),
+	@soLuongTonKho INT, @mota NTEXT
+AS
+BEGIN
+    SET NOCOUNT ON;
+	DECLARE @id_SP INT;
+	INSERT INTO SANPHAM (TENSP, MOTA, GIA, SOLUONGTRONGKHO) VALUES 
+		(@tenSP,@mota,@gia,@soLuongTonKho);
+	SET @id_SP = SCOPE_IDENTITY();
+
+	INSERT INTO CHITETSP (IDSP, KICHTHUOC, MAUSAC) VALUES 
+		(@id_SP,@kichThuoc,@mauSac);
+END
+
+GO
+
+CREATE PROC pro_UpdateSP
+	@idSP INT,
+	@tenSP NVARCHAR(50), @kichThuoc NVARCHAR(20),
+	@mauSac NVARCHAR(20), @gia DECIMAL(10,2),
+	@soLuongTonKho INT, @mota NTEXT
+AS
+BEGIN
+    UPDATE SANPHAM SET TENSP = @tenSP, SOLUONGTRONGKHO = @soLuongTonKho, 
+		GIA = @gia, MOTA = @mota
+			WHERE IDSP = @idSP;
+	UPDATE dbo.CHITETSP SET MAUSAC = @mauSac, KICHTHUOC = @kichThuoc
+		WHERE IDSP = @idSP
+END
+
+GO
+
+CREATE PROC pro_DeleteSP
+	@idSP INT
+AS
+BEGIN
+	DELETE FROM dbo.CHITETSP WHERE IDSP = @idSP;
+    DELETE FROM dbo.SANPHAM WHERE IDSP = @idSP;
+END
+
+
