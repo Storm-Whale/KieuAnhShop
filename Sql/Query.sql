@@ -23,7 +23,7 @@ SELECT ctsp.IDSPCTTHD, cthd.IDCTHD, cthd.IDHD,ctsp.IDSP, TENSP,ctsp.SOLUONG,
 		JOIN dbo.HOADON ON HOADON.IDHD = cthd.IDHD
 GO 
 
-SELECT * FROM dbo.v_GioHang WHERE IDHD = 1
+SELECT * FROM dbo.v_GioHang WHERE IDHD = 3
 
 
 
