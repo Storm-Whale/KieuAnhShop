@@ -69,11 +69,6 @@ BEGIN
 	UPDATE dbo.CHITIETHOADON SET SLSP = SLSP + @soluong, TONGTIENSP = TONGTIENSP + @soluong*@giaSp WHERE IDHD = @idhd
 END
 
-EXEC dbo.pro_ThemMoiSPVaoGioHang @idhd = 3,   -- int
-                                 @idhdct = 3, -- int
-                                 @idsp = 2,   -- int
-                                 @soluong = 1 -- int
-
 GO 
 CREATE PROC pro_UpdateGioHang
 	@idhd INT,
@@ -122,12 +117,6 @@ END
 
 GO
 
-EXEC dbo.pro_UpdateGioHang @idhd = 3,    -- int
-                           @idhdct = 3,  -- int
-                           @idsptgh = 5, -- int
-                           @idsp = 3,    -- int
-                           @soluong = 1  -- int
-GO
 CREATE PROC pro_DeleteSpTrongGioHang
 	@idhd INT,
 	@idhdct INT,
@@ -150,12 +139,42 @@ BEGIN
 	DELETE dbo.CHITIETSPTRONGHOADON WHERE IDSPCTTHD = @@idsptgh
 END
 
+GO
+
+CREATE PROC pro_NewHoaDon
+	@ngayTao DATE
+AS
+BEGIN
+	SET NOCOUNT ON;
+	DECLARE @id_HD INT;
+    INSERT INTO dbo.HOADON (IDKHACHHANG, NGAYTAO, TONGTIEN, TRANGTHAI) VALUES
+		(0, @ngayTao, 0, 1);
+	SET @id_HD = SCOPE_IDENTITY();
+
+	DECLARE @id_HDCT INT;
+	INSERT INTO dbo.CHITIETHOADON (IDHD, SLSP, TONGTIENSP) VALUES
+		(@id_HD, 0, 0)
+END
+
+GO
+
+EXEC dbo.pro_NewHoaDon @ngayTao = '2024-01-17' -- date
+
 GO 
 
-EXEC dbo.pro_DeleteSpTrongGioHang @idhd = 1,    -- int
-                                  @idhdct = 1,  -- int
-                                  @idsp = 5,    -- int
-                                  @@idsptgh = 7 -- int
+CREATE PROC pro_XoaHoaDon 
+	@id_HoaDon INT,
+	@id_HoaDonChiTiet INT
+AS
+BEGIN
+    DELETE dbo.CHITIETSPTRONGHOADON WHERE IDHDCT = @id_HoaDonChiTiet
+	DELETE dbo.CHITIETHOADON WHERE IDCTHD = @id_HoaDonChiTiet
+	DELETE dbo.HOADON WHERE IDHD = @id_HoaDon
+END
+
+GO
+EXEC dbo.pro_XoaHoaDon @id_HoaDon = 5,       -- int
+                       @id_HoaDonChiTiet = 5 -- int
 
 
 

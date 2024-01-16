@@ -43,16 +43,17 @@ CREATE TABLE CHITIETSPTRONGHOADON (
     IDSPCTTHD INT PRIMARY KEY IDENTITY(1,1),
     IDHDCT INT,
     IDSP INT,
-    SOLUONG INT NOT NULL,
-    GIA DECIMAL(10, 2) NOT NULL,
-    TONGTIEN DECIMAL(12, 2) NOT NULL,
-    FOREIGN KEY (IDHDCT) REFERENCES dbo.CHITETSP(IDCTSP),
+    SOLUONG INT,
+    GIA DECIMAL(10, 2),
+    TONGTIEN DECIMAL(12, 2),
+    FOREIGN KEY (IDHDCT) REFERENCES dbo.CHITIETHOADON(IDCTHD),
     FOREIGN KEY (IDSP) REFERENCES dbo.SANPHAM(IDSP)
 );
 
 -- Insert dữ liệu cho bảng SANPHAM
 INSERT INTO SANPHAM (TENSP, MOTA, GIA, SOLUONGTRONGKHO)
 VALUES 
+	(N'Sản Phẩm Test', N'Sản Phẩm Test', 0, 0),
     (N'Điện thoại Samsung Galaxy S21', N'Mô tả sản phẩm Samsung Galaxy S21', 999.99, 50),
     (N'Laptop Dell XPS 13', N'Mô tả sản phẩm Dell XPS 13', 1299.99, 30),
     (N'Tivi Sony Bravia 4K', N'Mô tả sản phẩm Sony Bravia 4K', 1499.99, 20);
@@ -60,6 +61,7 @@ VALUES
 -- Insert dữ liệu cho bảng CHITETSP
 INSERT INTO CHITETSP (IDSP, KICHTHUOC, MAUSAC)
 VALUES 
+	(4,N'Mẫu', N'Mẫu'),
     (1, N'6 inch', N'Đen'),
     (2, N'13.3 inch', N'Bạc'),
     (3, N'55 inch', N'Đen');
